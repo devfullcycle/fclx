@@ -1,0 +1,6 @@
+github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+github.com/j178/tiktoken-go v0.2.1 h1:bs8z+tj8YEYtFKOtUsyIUwnnsIfNb+UgdGEJX/HkTBU=
+github.com/j178/tiktoken-go v0.2.1/go.mod h1:hmh16kk7mgUq7Jc7eVHoU06MsjsfUk+VVMSUypPurjU=
+github.com/sashabaranov/go-openai v1.5.8 h1:EfNEmc+Ue+CuRy7iSpNdxfHyiOv2vQsQ2Y0kZRA/z5w=
+github.com/sashabaranov/go-openai v1.5.8/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=
