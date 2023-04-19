@@ -18,4 +18,7 @@ COPY . .
 RUN cd /go/pkg/mod/github.com/j178/tiktoken-go@v0.2.1/tiktoken-cffi && \
     cargo build --release
 
+RUN apt update && apt install -y protobuf-compiler && apt install -y protoc-gen-go
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+
 CMD [ "tail", "-f", "/dev/null" ]
