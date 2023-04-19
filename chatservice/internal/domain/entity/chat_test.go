@@ -39,15 +39,12 @@ func TestAddMessageShouldNotThrowErrorWhenMessageIsTooLarge(t *testing.T) {
 
 	initialMessage := newMessage(systemRole, basicMessageContent, model)
 
-	chat, err := entity.NewChat(userID, initialMessage, chatConfig)
-	if err != nil {
-		t.Fatal("error creating chat")
-	}
+	chat, _ := entity.NewChat(userID, initialMessage, chatConfig)
 
 	mockTikToken.On("CountTokens", model.Name, messageTooLargeContent).Return(99)
 	messageTooLarge := newMessage(userRole, messageTooLargeContent, model)
 
-	err = chat.AddMessage(messageTooLarge)
+	err := chat.AddMessage(messageTooLarge)
 	errMessage := "message too large"
 	assert.EqualErrorf(t, err, errMessage, "Error should be: %v, got: %v", errMessage, err)
 }
