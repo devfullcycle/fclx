@@ -4,6 +4,8 @@ services:
   chatservice:
     build: .
     container_name: chatservice_app
+    depends_on:
+      - mysql
     volumes:
       - .:/go/src
     ports:
@@ -19,6 +21,6 @@ services:
       MYSQL_DATABASE: chat_test
       MYSQL_PASSWORD: root
     ports:
-      - 3306:3306  
+      - 3306:3306
     volumes:
       - .docker/mysql:/var/lib/mysql

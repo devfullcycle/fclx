@@ -68,7 +68,8 @@ func (uc *ChatCompletionUseCase) Execute(ctx context.Context, input ChatCompleti
 		}
 	}
 
-	userMessage, err := entity.NewMessage("user", input.UserMessage, chat.Config.Model)
+	tikToken := &entity.TikTokenImpl{}
+	userMessage, err := entity.NewMessage("user", input.UserMessage, tikToken, chat.Config.Model)
 	if err != nil {
 		return nil, errors.New("error creating new message: " + err.Error())
 	}
@@ -122,7 +123,7 @@ func (uc *ChatCompletionUseCase) Execute(ctx context.Context, input ChatCompleti
 		uc.Stream <- r
 	}
 
-	assistant, err := entity.NewMessage("assistant", fullResponse.String(), chat.Config.Model)
+	assistant, err := entity.NewMessage("assistant", fullResponse.String(), tikToken, chat.Config.Model)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +159,7 @@ func createNewChat(input ChatCompletionInputDTO) (*entity.Chat, error) {
 		Model:            model,
 	}
 
-	initialMessage, err := entity.NewMessage("system", input.Config.InitialSystemMessage, model)
+	initialMessage, err := entity.NewMessage("system", input.Config.InitialSystemMessage, &entity.TikTokenImpl{}, model)
 	if err != nil {
 		return nil, errors.New("error creating initial message: " + err.Error())
 	}

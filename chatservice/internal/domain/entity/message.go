@@ -17,8 +17,18 @@ type Message struct {
 	CreatedAt time.Time
 }
 
-func NewMessage(role, content string, model *Model) (*Message, error) {
-	totalTokens := tiktoken_go.CountTokens(model.GetModelName(), content)
+type TikToken interface {
+	CountTokens(model, prompt string) int
+}
+
+type TikTokenImpl struct{}
+
+func (t *TikTokenImpl) CountTokens(model, prompt string) int {
+	return tiktoken_go.CountTokens(model, prompt)
+}
+
+func NewMessage(role, content string, tikToken TikToken, model *Model) (*Message, error) {
+	totalTokens := tikToken.CountTokens(model.GetModelName(), content)
 	msg := &Message{
 		ID:        uuid.New().String(),
 		Role:      role,
