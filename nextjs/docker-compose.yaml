@@ -8,7 +8,7 @@ services:
     volumes:
       - .:/home/node/app
     extra_hosts:
-      - "host.docker.internal:172.17.0.1"
+      - "host.docker.internal:172.17.0.1"  
     # networks:
     #   - fcexperience
 
@@ -19,9 +19,28 @@ services:
       - MYSQL_DATABASE=chat
     volumes:
       - .docker/dbdata:/var/lib/mysql
+     # networks:
+     #   - fcexperience
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.0
+    command: start-dev
+    ports:
+      - 9000:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
     # networks:
     #   - fcexperience
 
 # networks:
 #   fcexperience:
 #     external: true
+
+# Mac e Linux
+# /etc/hosts
+
+# 127.0.0.1 host.docker.internal
+
+# Windows
+# C:\Windows\System32\drivers\etc\hosts
