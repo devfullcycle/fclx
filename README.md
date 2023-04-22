@@ -20,3 +20,5 @@ Frontend do ChatGPT com Next.js e React
 
 ### Aula 05
 KeyCloak: Integrando servidor de identidade
+
+<img src="./arquitetura do projeto.png" alt="FCLX" title="Full Cycle Learning Experience" />
