@@ -28,7 +28,7 @@ func (r *ChatRepositoryMySQL) CreateChat(ctx context.Context, chat *entity.Chat)
 		db.CreateChatParams{
 			ID:               chat.ID,
 			UserID:           chat.UserID,
-			InitialMessageID: chat.InitialSystemMessage.Content,
+			InitialMessageID: chat.InitialSystemMessage.ID,
 			Status:           chat.Status,
 			TokenUsage:       int32(chat.TokenUsage),
 			Model:            chat.Config.Model.Name,
@@ -128,6 +128,7 @@ func (r *ChatRepositoryMySQL) SaveChat(ctx context.Context, chat *entity.Chat) e
 		ID:               chat.ID,
 		UserID:           chat.UserID,
 		Status:           chat.Status,
+		InitialMessageID: chat.InitialSystemMessage.ID,
 		TokenUsage:       int32(chat.TokenUsage),
 		Model:            chat.Config.Model.Name,
 		ModelMaxTokens:   int32(chat.Config.Model.MaxTokens),
