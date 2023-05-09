@@ -143,3 +143,5 @@ function writeStream(
   const streamData = typeof data === "string" ? data : JSON.stringify(data);
   writer.write(encoder.encode(`data: ${streamData}\n\n`));
 }
+
+export const dynamic = 'force-dynamic';

@@ -28,3 +28,5 @@ export async function GET(_request: NextRequest) {
     status: 200,
   });
 }
+
+export const dynamic = 'force-dynamic';

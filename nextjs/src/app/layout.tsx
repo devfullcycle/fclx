@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { SessionProvider } from "./components/providers/SessionProvider";
 import "./globals.css";
-import { authConfig } from "./api/auth/[...nextauth]/route";
+import { authConfig } from "./api/auth/[...nextauth]/authConfig";
 
 export const metadata = {
   title: "Create Next App",
