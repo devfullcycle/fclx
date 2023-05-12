@@ -37,7 +37,11 @@ func NewChat(userID string, initialSystemMessage *Message, chatConfig *ChatConfi
 		Config:               chatConfig,
 		TokenUsage:           0,
 	}
-	chat.AddMessage(initialSystemMessage)
+
+	err := chat.AddMessage(initialSystemMessage)
+	if err != nil {
+		return nil, err
+	}
 
 	if err := chat.Validate(); err != nil {
 		return nil, err
@@ -63,8 +67,16 @@ func (c *Chat) AddMessage(m *Message) error {
 	if c.Status == "ended" {
 		return errors.New("chat is ended. no more messages allowed")
 	}
+
+	messageTotalTokens := m.GetQtdTokens()
+	modelMaxTokens := c.Config.Model.GetMaxTokens()
+
+	if messageTotalTokens > modelMaxTokens {
+		return errors.New("message too large")
+	}
+
 	for {
-		if c.Config.Model.GetMaxTokens() >= m.GetQtdTokens()+c.TokenUsage {
+		if modelMaxTokens >= messageTotalTokens+c.TokenUsage {
 			c.Messages = append(c.Messages, m)
 			c.RefreshTokenUsage()
 			break

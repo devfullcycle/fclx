@@ -2,6 +2,7 @@ package server
 
 import (
 	"net"
+	"strings"
 
 	"github.com/devfullcycle/fclx/chatservice/internal/infra/grpc/pb"
 	"github.com/devfullcycle/fclx/chatservice/internal/infra/grpc/service"
@@ -50,7 +51,16 @@ func (g *GRPCServer) AuthInterceptor(srv interface{}, ss grpc.ServerStream, info
 		return status.Error(codes.Unauthenticated, "authorization token is invalid")
 	}
 
-	return handler(srv, ss)
+	err := handler(srv, ss)
+	if err != nil {
+		if strings.Contains(err.Error(), "message too large") {
+			return status.Error(codes.InvalidArgument, err.Error())
+		}
+
+		return status.Errorf(codes.Internal, "internal error %v", err)
+	}
+
+	return nil
 }
 
 func (g *GRPCServer) Start() error {
